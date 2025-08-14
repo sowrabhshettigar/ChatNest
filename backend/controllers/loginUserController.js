@@ -16,13 +16,13 @@ export const userLogin = async (req, res) => {
 
         if(!user)
         {
-            return res.status(400).json({message:'Invalid User Data'});
+            return res.status(400).json({message:'Invalid Email or Password'});
         }
 
         const isPasswordMatch = await bcrypt.compare(password, user.password);
         if(!isPasswordMatch)
         {
-            return res.status(400).json({message: 'Invalid Password'});
+            return res.status(400).json({message: 'Invalid Email or Password'});
         }
 
         const token=jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'30d'});
